@@ -1,0 +1,146 @@
+syntax="proto3";
+
+package microblog;
+
+option go_package="github.com/mustthink/microblog";
+
+service Microblog {
+  rpc CreateTopic(CreateTopicRequest) returns (CreateTopicResponse) {}
+  rpc GetTopic(GetTopicRequest) returns (GetTopicResponse) {}
+  rpc GetTopicPosts(TopicPostsRequest) returns (TopicPostsResponse) {}
+  rpc DeleteTopic(DeleteTopicRequest) returns (DeleteTopicResponse) {}
+
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {}
+  rpc GetPost(GetPostRequest) returns (GetPostResponse) {}
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse) {}
+  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {}
+  rpc GetPostComments(PostCommentsRequest) returns (PostCommentsResponse) {}
+
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse) {}
+  rpc GetComment(GetCommentRequest) returns (GetCommentResponse) {}
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse) {}
+  rpc UpdateComment(UpdateCommentRequest) returns (UpdateCommentResponse) {}
+}
+
+message CreateTopicRequest {
+  string title = 1;
+  string description = 2;
+}
+
+message CreateTopicResponse {
+  //topic_id is 0 if the topic was not created
+  uint64 topic_id = 1;
+}
+
+message GetTopicRequest{
+  uint64 topic_id = 1;
+}
+
+message GetTopicResponse{
+  string title = 1;
+  string description = 2;
+}
+
+message TopicPostsRequest{
+  uint64 topic_id = 1;
+}
+
+message TopicPostsResponse{
+  repeated GetPostResponse posts = 1;
+}
+
+message DeleteTopicRequest{
+  uint64 topic_id = 1;
+}
+
+message DeleteTopicResponse{
+  bool success = 1;
+}
+
+message CreatePostRequest {
+  uint64 topic_id = 1;
+  string title = 2;
+  string content = 3;
+  uint64 author_id = 4;
+}
+
+message CreatePostResponse {
+ //post_id is 0 if the post was not created
+  uint64 post_id = 1;
+}
+
+message GetPostRequest{
+  uint64 post_id = 1;
+}
+
+message GetPostResponse{
+  uint64 topic_id = 1;
+  string title = 2;
+  string content = 3;
+  uint64 author_id = 4;
+}
+
+message DeletePostRequest{
+  uint64 post_id = 1;
+}
+
+message DeletePostResponse{
+  bool success = 1;
+}
+
+message UpdatePostRequest{
+  uint64 post_id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message UpdatePostResponse{
+  bool success = 1;
+}
+
+message PostCommentsRequest{
+  uint64 post_id = 1;
+}
+
+message PostCommentsResponse{
+  repeated GetCommentResponse comments = 1;
+}
+
+message CreateCommentRequest{
+  uint64 post_id = 1;
+  string content = 2;
+  uint64 author_id = 3;
+}
+
+message CreateCommentResponse{
+  //comment_id is 0 if the comment was not created
+  uint64 comment_id = 1;
+}
+
+message GetCommentRequest{
+  uint64 comment_id = 1;
+}
+
+message GetCommentResponse{
+  uint64 post_id = 1;
+  string content = 2;
+  uint64 author_id = 3;
+}
+
+message DeleteCommentRequest{
+  uint64 comment_id = 1;
+}
+
+message DeleteCommentResponse{
+  bool success = 1;
+}
+
+message UpdateCommentRequest{
+  uint64 comment_id = 1;
+  string content = 2;
+}
+
+message UpdateCommentResponse{
+  bool success = 1;
+}
+

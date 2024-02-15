@@ -1,0 +1,10 @@
+env: "local"
+database:
+  host: "postgres"
+  port: 5432
+  user: "user"
+  pass: "pass"
+  db: "microblog"
+grpc:
+  port: 44044
+  timeout: 10s
