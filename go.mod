@@ -1,4 +1,4 @@
-module github.com/mustthink/microblog
+module github.com/mustthink/go-microblog-service
 
 go 1.21.3
 
